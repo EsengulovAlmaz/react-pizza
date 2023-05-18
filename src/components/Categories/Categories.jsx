@@ -1,7 +1,9 @@
 import React from 'react';
+import { useContexts } from '../../Context/useContext';
 
 function Categories() {
-  const [activeIndex, setActiveIndex] = React.useState(0);
+  // const [activeIndex, setActiveIndex] = React.useState(0);
+  const { setActiveIndex, activeIndex } = useContexts();
 
   const categoriesList = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 

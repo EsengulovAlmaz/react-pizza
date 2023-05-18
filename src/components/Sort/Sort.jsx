@@ -1,14 +1,9 @@
 import React from 'react';
+import { useContexts } from '../../Context/useContext';
 
 function Sort() {
-  const [open, setOpen] = React.useState(false);
-  const [selected, setSelected] = React.useState('популярности');
+  const { selected, open, setOpen, onClickListItem } = useContexts();
   const list = ['популярности', 'цене', 'алфавиту'];
-
-  const onClickListItem = (name) => {
-    setSelected(name);
-    setOpen(false);
-  };
 
   return (
     <div className="sort">

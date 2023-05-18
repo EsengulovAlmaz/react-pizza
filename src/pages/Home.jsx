@@ -4,20 +4,11 @@ import Categories from '../components/Categories/Categories';
 import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
 import Sort from '../components/Sort/Sort';
 import Skeleton from '../components/PizzaBlock/Skeleton';
+import { useContexts } from '../Context/useContext';
+
 
 const Home = () => {
-  const [items, setItems] = React.useState();
-  const [isLoading, setIsLoading] = React.useState(true);
-
-  React.useEffect(() => {
-    fetch('http://localhost:8080/pizza')
-      .then(res => res.json())
-      .then(res => {
-        setItems(res);
-        setIsLoading(false);
-      })
-    window.scrollTo(0, 0);
-  }, []);
+  const { isLoading, items } = useContexts();
 
   return (
     <div className="container">
