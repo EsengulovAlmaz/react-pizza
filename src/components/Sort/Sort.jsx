@@ -3,7 +3,18 @@ import { useContexts } from '../../Context/useContext';
 
 function Sort() {
   const { selected, open, setOpen, onClickListItem } = useContexts();
-  const list = ['популярности', 'цене', 'алфавиту'];
+  const list = [{
+    name: "популярности",
+    sort: "rating"
+  },
+  {
+    name: "цене",
+    sort: "price"
+  },
+  {
+    name: "алфавиту",
+    sort: "title"
+  }];
 
   return (
     <div className="sort">
@@ -25,12 +36,12 @@ function Sort() {
       {open ? (
         <div className="sort__popup">
           <ul>
-            {list.map((name) => (
+            {list.map((obj) => (
               <li
-                key={name}
-                onClick={() => onClickListItem(name)}
-                className={selected === name ? 'active' : null}>
-                {name}
+                key={obj.name}
+                onClick={() => onClickListItem(obj.sort)}
+                className={selected === obj.sort ? 'active' : null}>
+                {obj.name}
               </li>
             ))}
           </ul>

@@ -6,8 +6,9 @@ export const Context = ({ children }) => {
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [items, setItems] = React.useState();
   const [isLoading, setIsLoading] = React.useState(true);
-  const [selected, setSelected] = React.useState('популярности');
+  const [selected, setSelected] = React.useState("rating");
   const [open, setOpen] = React.useState(false);
+  const [searchValue, setSearchValue] = React.useState("");
 
   const onClickListItem = (name) => {
     setSelected(name);
@@ -16,23 +17,17 @@ export const Context = ({ children }) => {
 
   React.useEffect(() => {
     const categories = activeIndex === 0 ? "" : `category=${activeIndex}`;
-    const sort = selected === "популярности"
-      ? "rating"
-      : selected === "цене"
-        ? "price"
-        : selected === "алфавиту"
-          ? "title"
-          : "";
+    const search = searchValue === "" ? "" : `title_like=${searchValue}`;
 
     setIsLoading(true);
-    fetch(`http://localhost:8080/pizza?${categories}&_sort=${sort}&_order=asc`)
+    fetch(`http://localhost:8080/pizza?${categories}&_sort=${selected}&_order=asc&${search}`)
       .then(res => res.json())
       .then(res => {
         setItems(res);
         setIsLoading(false);
       })
     window.scrollTo(0, 0);
-  }, [activeIndex, selected]);
+  }, [activeIndex, selected, searchValue]);
 
   const value = {
     activeIndex,
@@ -43,7 +38,9 @@ export const Context = ({ children }) => {
     setSelected,
     open,
     setOpen,
-    onClickListItem
+    onClickListItem,
+    searchValue,
+    setSearchValue
   };
 
   return (
