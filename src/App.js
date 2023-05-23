@@ -1,15 +1,16 @@
 import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+
 
 import Header from './components/Header/Header';
 import Home from './pages/Home';
-
-import './scss/app.scss';
-import { Route, Routes } from 'react-router-dom';
 import NotFound from './pages/NotFound';
 import Cart from './pages/Cart';
 
-function App() {
+import './scss/app.scss';
 
+
+function App() {
 
   return (
     <div className="wrapper">
