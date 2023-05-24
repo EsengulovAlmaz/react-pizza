@@ -8,7 +8,6 @@ import styles from "./Search.index.module.scss";
 
 const Search = () => {
   const [value, setValue] = React.useState();
-  const searchValue = useSelector(state => state.search.value);
   const dispatch = useDispatch();
 
   const uptadeSearchValue = React.useCallback(
