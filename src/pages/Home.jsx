@@ -1,36 +1,31 @@
 import React from 'react';
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import qs from "qs";
 
 import Categories from '../components/Categories/Categories';
 import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
 import Sort, { sortList } from '../components/Sort/Sort';
 import Skeleton from '../components/PizzaBlock/Skeleton';
-import { useNavigate } from 'react-router-dom';
-import { setFilters } from '../redux/slices/filterSlice';
+import { selectFilter, setFilters } from '../redux/slices/filterSlice';
+import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzasSlice';
 
 
 const Home = () => {
-  const [items, setItems] = React.useState();
-  const [isLoading, setIsLoading] = React.useState(true);
-  const { categoryId, sort } = useSelector(state => state.filter);
+  const { categoryId, sort } = useSelector(selectFilter);
   const searchValue = useSelector(state => state.search.value);
+  const { items, status } = useSelector(selectPizzaData);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
-  const fetchPizzas = () => {
+  const getPizzas = () => {
     const categories = categoryId === 0 ? "" : `category=${categoryId}`;
     const search = searchValue === "" ? "" : `title_like=${searchValue}`;
 
-    setIsLoading(true);
-    axios.get(`http://localhost:8080/pizza?${categories}&_sort=${sort.sortProperty}&_order=asc&${search}`)
-      .then(res => {
-        setItems(res.data);
-        setIsLoading(false);
-      })
+    dispatch(fetchPizzas({ categories, search, sort }))
+    window.scrollTo(0, 0);
   };
 
   React.useEffect(() => {
@@ -52,7 +47,7 @@ const Home = () => {
     window.scrollTo(0, 0);
 
     if (!isSearch.current) {
-      fetchPizzas();
+      getPizzas();
     }
 
     isSearch.current = false;
@@ -79,10 +74,20 @@ const Home = () => {
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
         {
-          isLoading
+          status === "error"
+          && <div className="content__error-info">
+            <h2>Произошла ошибка</h2>
+            <p>К сожалению, не удалось получить пиццы</p>
+          </div>
+        }
+        {
+          status === "loading"
             ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
             : items?.map((obj) => (
-              <PizzaBlock key={obj.id} {...obj} />
+              <PizzaBlock
+                key={obj.id}
+                {...obj}
+              />
             ))
         }
       </div>
