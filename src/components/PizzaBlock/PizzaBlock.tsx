@@ -5,7 +5,16 @@ import { useNavigate } from 'react-router-dom';
 
 const typeNames = ['тонкое', 'традиционное'];
 
-function PizzaBlock({ id, imageUrl, title, types, sizes, price }) {
+type PizzaBlockProps = {
+  id: number;
+  imageUrl: string;
+  title: string;
+  types: number[];
+  sizes: number[];
+  price: number;
+};
+
+const PizzaBlock: React.FC<PizzaBlockProps> = ({ id, imageUrl, title, types, sizes, price }) => {
   const [activeType, setActiveType] = React.useState(0);
   const [activeSize, setActiveSize] = React.useState(0);
   const cartItem = useSelector(selectCartItemById(id));

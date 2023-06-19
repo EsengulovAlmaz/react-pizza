@@ -1,23 +1,23 @@
 import React from 'react';
 import { CiSearch } from "react-icons/ci";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setSearch } from '../../redux/slices/searchSlice';
 import debounce from 'lodash.debounce';
 
 import styles from "./Search.index.module.scss";
 
-const Search = () => {
-  const [value, setValue] = React.useState();
+const Search: React.FC = () => {
+  const [value, setValue] = React.useState("");
   const dispatch = useDispatch();
 
   const uptadeSearchValue = React.useCallback(
-    debounce((e) => {
+    debounce((e: string) => {
       dispatch(setSearch(e))
     }, 500),
     []
-  )
+  );
 
-  const onChangeInput = (e) => {
+  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
     uptadeSearchValue(e.target.value);
   };

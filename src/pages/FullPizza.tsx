@@ -1,24 +1,33 @@
+import React from 'react';
 import axios from 'axios';
-import React, { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 
-const FullPizza = () => {
+const FullPizza: React.FC = () => {
+  const [pizza, setPizza] = React.useState<{
+    imageUrl: string,
+    title: string;
+    price: number;
+  }>();
   const { id } = useParams();
-  const [pizza, setPizza] = useState({});
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     (async function () {
       try {
         const { data } = await axios.get(`http://localhost:8080/pizza?id=${id}`);
-        setPizza(...data);
+        setPizza(data[0]);
       } catch (error) {
-        console.log(error.message);
+        alert("Ошибка при получении пиццы!");
+        navigate("/");
       }
     }())
   }, []);
 
-  console.log(pizza);
+
+  if (!pizza) {
+    return <>Загрузка...</>;
+  }
 
   return (
     <div className="container">

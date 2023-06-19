@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from "./NotFoundBlock.module.scss";
 
-export default function NotFoundBlock() {
+const NotFoundBlock: React.FC = () => {
   return (
     <div className={styles.notFound}>
       <span className={styles.notFound__icon}>😥</span>
@@ -10,3 +10,5 @@ export default function NotFoundBlock() {
     </div>
   )
 };
+
+export default NotFoundBlock;

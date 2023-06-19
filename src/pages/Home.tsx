@@ -11,9 +11,9 @@ import { selectFilter, setFilters } from '../redux/slices/filterSlice';
 import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzasSlice';
 
 
-const Home = () => {
+const Home: React.FC = () => {
   const { categoryId, sort } = useSelector(selectFilter);
-  const searchValue = useSelector(state => state.search.value);
+  const searchValue = useSelector<any>(state => state.search.value);
   const { items, status } = useSelector(selectPizzaData);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -24,7 +24,10 @@ const Home = () => {
     const categories = categoryId === 0 ? "" : `category=${categoryId}`;
     const search = searchValue === "" ? "" : `title_like=${searchValue}`;
 
-    dispatch(fetchPizzas({ categories, search, sort }))
+    dispatch(
+      //@ts-ignore 
+      fetchPizzas({ categories, search, sort })
+    )
     window.scrollTo(0, 0);
   };
 
@@ -83,7 +86,7 @@ const Home = () => {
         {
           status === "loading"
             ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
-            : items?.map((obj) => (
+            : items?.map((obj: any) => (
               <PizzaBlock
                 key={obj.id}
                 {...obj}
