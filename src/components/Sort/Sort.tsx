@@ -4,7 +4,7 @@ import { selectSort, setSort } from '../../redux/slices/filterSlice';
 
 type SortItem = {
   name: string;
-  sortProperty: string;
+  sortProperty: "rating" | "price" | "title";
 };
 
 export const sortList: SortItem[] = [{
@@ -20,7 +20,7 @@ export const sortList: SortItem[] = [{
   sortProperty: "title"
 }];
 
-function Sort() {
+function SortPopup() {
   const [open, setOpen] = React.useState(false);
   const sort = useSelector(selectSort);
   const dispatch = useDispatch();
@@ -82,4 +82,4 @@ function Sort() {
   );
 }
 
-export default Sort;
+export default SortPopup;
