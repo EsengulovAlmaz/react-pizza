@@ -7,9 +7,11 @@ import Categories from '../components/Categories/Categories';
 import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
 import SortPopup, { sortList } from '../components/Sort/Sort';
 import Skeleton from '../components/PizzaBlock/Skeleton';
-import { FilterSliceState, selectFilter, setFilters } from '../redux/slices/filterSlice';
-import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzasSlice';
+import { setFilters } from '../redux/filter/slice';
 import { useAppDispatch } from '../redux/store';
+import { selectFilter } from '../redux/filter/selectors';
+import { selectPizzaData } from '../redux/pizza/selectors';
+import { fetchPizzas } from '../redux/pizza/asyncActions';
 
 
 const Home: React.FC = () => {

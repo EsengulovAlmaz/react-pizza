@@ -1,7 +1,7 @@
 import React from 'react';
 import { CiSearch } from "react-icons/ci";
 import { useDispatch } from 'react-redux';
-import { setSearch } from '../../redux/slices/searchSlice';
+import { setSearch } from '../../redux/search/slice';
 import debounce from 'lodash.debounce';
 
 import styles from "./Search.index.module.scss";
