@@ -1,15 +1,14 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-
 import Home from './pages/Home';
-import NotFound from './pages/NotFound';
-import Cart from './pages/Cart';
 import Layout from './layouts/Layout';
 
 import './scss/app.scss';
-import FullPizza from './pages/FullPizza';
 
+const Cart = React.lazy(() => import(/* webpackChunkName: "Cart" */"./pages/Cart"));
+const FullPizza = React.lazy(() => import(/* webpackChunkName: "FullPizza" */"./pages/FullPizza"));
+const NotFound = React.lazy(() => import(/* webpackChunkName: "NotFound" */"./pages/NotFound"));
 
 function App() {
   return (

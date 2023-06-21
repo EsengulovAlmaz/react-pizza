@@ -8,9 +8,11 @@ import { store } from './redux/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
-    <BrowserRouter>
-        <Provider store={store} >
-            <App />
-        </Provider>
-    </BrowserRouter>
+    <React.Suspense fallback={<h2>Загрузка...</h2>}>
+        <BrowserRouter>
+            <Provider store={store} >
+                <App />
+            </Provider>
+        </BrowserRouter>
+    </React.Suspense>
 );
